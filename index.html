@@ -332,7 +332,7 @@
   // --- Configurazione Google Apps Script ---
   // Sostituisci il valore qui sotto con l'URL del tuo Web App
   // (lo ottieni dopo aver fatto il Deploy dello script nel tuo Google Sheet).
-  const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwYo7aegFTVYwKyThhWXKm9REg_BZl6Xf9I32Q1BasA4WYvKhUV6J0okCXkzg39TiHg9A/exec";
+  const APPS_SCRIPT_URL = "INSERISCI_URL_APPS_SCRIPT";
 
   async function hashPassword(plain) {
     const enc = new TextEncoder().encode(plain);
@@ -493,7 +493,9 @@
   }
 
   function formatDate(iso) {
-    const d = new Date(iso + 'T00:00:00');
+    if (!iso || typeof iso !== 'string' || !/^\d{4}-\d{2}-\d{2}/.test(iso)) return '—';
+    const d = new Date(iso.slice(0, 10) + 'T00:00:00');
+    if (isNaN(d.getTime())) return '—';
     return d.toLocaleDateString('it-IT', { day: '2-digit', month: 'short' });
   }
 
